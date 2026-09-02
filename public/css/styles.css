@@ -64,3 +64,44 @@ th, td {
 .navbar a:hover {
     text-decoration: underline;
 }
+
+.modal-overlay {
+    display: flex;
+    visibility: visible;
+    opacity: 1;
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    align-items: center;
+    justify-content: center;
+    background-color: rgba(0, 0, 0, 0.5);
+    transition: opacity 0.3s ease, visibility 0.3s ease;
+}
+
+
+.modal-content {
+    background-color: var(--bg-card);
+    color: var(--blanco);
+    margin: 10% auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 80%;
+    max-width: 500px;
+    height: auto;
+    max-height: fit-content;
+    border-radius: 20px;
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.6), 0 0 0 3px var(--border-glow);
+
+    img {
+        width: 60%;
+        display: block;
+        margin: 0 auto;
+        align-self: center;
+    }
+
+    transform: translateY(20px) scale(0.7);
+    transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
