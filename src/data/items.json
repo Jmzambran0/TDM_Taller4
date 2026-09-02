@@ -2,26 +2,46 @@
   {
     "name": "Objeto 1",
     "description": "Descripción 1",
-    "id": 1
+    "id": 1,
+    "price": 0,
+    "category": "Categoría 1",
+    "stock": 25,
+    "createDate": "dd/MM/yyyy"
   },
   {
     "name": "Objeto 2",
     "description": "Descripción 2",
-    "id": 2
+    "id": 2,
+    "price": 0,
+    "category": "Categoría 2",
+    "stock": 25,
+    "createDate": "dd/MM/yyyy"
   },
   {
     "name": "Objeto 3",
     "description": "Descripción 3",
-    "id": 3
+    "id": 3,
+    "price": 0,
+    "category": "Categoría 3",
+    "stock": 25,
+    "createDate": "dd/MM/yyyy"
   },
   {
     "name": "Objeto 4",
     "description": "Descripción 4",
-    "id": 4
+    "id": 4,
+    "price": 0,
+    "category": "Categoría 4",
+    "stock": 25,
+    "createDate": "dd/MM/yyyy"
   },
   {
     "name": "Objeto 5",
     "description": "Descripción 5",
-    "id": 5
+    "id": 5,
+    "price": 0,
+    "category": "Categoría 1",
+    "stock": 25,
+    "createDate": "dd/MM/yyyy"
   }
 ]
