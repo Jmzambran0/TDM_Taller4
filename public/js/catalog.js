@@ -1,4 +1,4 @@
-
+import { closeModal, showModalCatalogo} from "./ui/ui.js";
 // Constante con la URL base de la API
 const API_URL = "/api/items";
 
@@ -33,6 +33,8 @@ function renderItem(item) {
         </div>
     `;
     catalogContainer.appendChild(card);
+   card.addEventListener("click", () => showModalCatalogo(item));
 }
+
 
 loadCatalog();

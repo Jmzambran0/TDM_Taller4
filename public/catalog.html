@@ -19,7 +19,23 @@
     <div id="catalogContainer" class="catalog-grid">
         <!-- Aquí se van a renderizar las tarjetas con los items -->
     </div>
+     <div id="catalogo-modal" class="modal-overlay">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 id="modal-catalogo-name"></h2>
+                <span class="close-modal">&times;</span>
+            </div>
+            <img src="" alt="Catalogo" id="modal-catalogo-img">
+            <p class="catalogo-id" id="modal-catalogo-id"></p>
 
+            <div class="modal-info">
+                <p><strong>Descripción:</strong><span id="modal-catalogo-descripcion"></span></p>
+                <p><strong>Precio:</strong><span id="modal-catalogo-price"></span></p>
+                <p><strong>Talla:</strong><span id="modal-catalogo-size"></span></p>
+                <p><strong>Stock:</strong><span id="modal-catalogo-stock"></span></p>
+            </div>
+        </div>
+    </div>
     <script type="module" src="./js/catalog.js"></script>
 </body>
 </html>
