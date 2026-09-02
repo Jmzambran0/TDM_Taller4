@@ -132,8 +132,8 @@ th, td {
 
 /*estilos para el modal*/
 .modal-overlay {
-    display: flex;
-    visibility: hidden;
+    display: none;
+    visibility: visible;
     opacity: 1;
     position: fixed;
     z-index: 1;
@@ -146,7 +146,9 @@ th, td {
     background-color: rgba(0, 0, 0, 0.5);
     transition: opacity 0.3s ease, visibility 0.3s ease;
 }
-
+.modal-overlay.active {
+    display: flex; 
+}
 .modal-content {
     background-color: var(--white);
     margin: 10% auto;

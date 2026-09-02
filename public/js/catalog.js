@@ -32,8 +32,8 @@ function renderItem(item) {
             </figure>
         </div>
     `;
+    card.addEventListener("click", () => showModalCatalogo(item));
     catalogContainer.appendChild(card);
-   card.addEventListener("click", () => showModalCatalogo(item));
 }
 
 
