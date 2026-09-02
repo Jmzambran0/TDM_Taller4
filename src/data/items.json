@@ -7,7 +7,7 @@
     "category": "Categoría 1",
     "stock": 0,
     "createdDate": "30/05/2023",
-    "image": "https://via.placeholder.com/150"
+    "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQUAbu-8Lkb3QiRaudn91AYcgw8PmtQJq5oN15bJqiwEHwnUeDAraF2VCI&s=10"
   },
   {
     "name": "Objeto 2",
@@ -17,6 +17,6 @@
     "category": "Categoría 2",
     "stock": 25,
     "createdDate": "30/08/2023",
-    "image": "https://via.placeholder.com/150"
+    "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQUAbu-8Lkb3QiRaudn91AYcgw8PmtQJq5oN15bJqiwEHwnUeDAraF2VCI&s=10"
   }
 ]
