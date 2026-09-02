@@ -1,0 +1,27 @@
+[
+  {
+    "name": "Objeto 1",
+    "description": "Descripción 1",
+    "id": 1
+  },
+  {
+    "name": "Objeto 2",
+    "description": "Descripción 2",
+    "id": 2
+  },
+  {
+    "name": "Objeto 3",
+    "description": "Descripción 3",
+    "id": 3
+  },
+  {
+    "name": "Objeto 4",
+    "description": "Descripción 4",
+    "id": 4
+  },
+  {
+    "name": "Objeto 5",
+    "description": "Descripción 5",
+    "id": 5
+  }
+]
