@@ -1,31 +1,38 @@
-// Script base para la vista de catálogo
-// Aquí deben consumir la API de items y mostrarlos en la página
 
 // Constante con la URL base de la API
 const API_URL = "/api/items";
 
-// TODO: Seleccionar el contenedor donde se mostrarán los items
-// const catalogContainer = document.getElementById("...");
+const catalogContainer = document.getElementById("catalogContainer");
 
 // Función principal para cargar los items desde la API
 async function loadCatalog() {
     try {
-        // 1. Hacer fetch a la API (GET /api/items)
-        // 2. Parsear la respuesta a JSON
-        // 3. Limpiar el contenedor del catálogo
-        // 4. Iterar sobre cada item y llamar a renderItem()
+        const res = await fetch(API_URL);
+        const items = await res.json();
+        catalogContainer.innerHTML = "";
+        items.forEach(renderItem);
     } catch (err) {
         console.error("Error cargando catálogo:", err);
         // TODO: Mostrar mensaje de error en la UI
     }
 }
 
-// Función para renderizar un item en el catálogo
 function renderItem(item) {
-    // TODO: Crear un elemento HTML (ej: div o card)
-    // TODO: Asignar los datos del item (name, description, etc.)
-    // TODO: Insertar el elemento en el contenedor
+    const card = document.createElement("div");
+    card.classList.add("product-card");
+    card.innerHTML = `
+        <img src="${item.image}" alt="imagen del producto">
+        <div class="product-info">
+            <div>
+                <p>${item.name}</p>
+                <p>${item.price}</p>
+            </div>
+            <figure>
+                <p>Ver más</p>
+            </figure>
+        </div>
+    `;
+    catalogContainer.appendChild(card);
 }
 
-// Inicializar el catálogo cuando cargue la página
 loadCatalog();
