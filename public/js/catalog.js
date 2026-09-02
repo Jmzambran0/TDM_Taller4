@@ -23,12 +23,12 @@ function renderItem(item) {
     card.innerHTML = `
         <img src="${item.image}" alt="imagen del producto">
         <div class="product-info">
-            <div>
+            <div class="card-title">
                 <p>${item.name}</p>
-                <p>${item.price}</p>
             </div>
             <figure>
-                <p>Ver más</p>
+                <p class="card-price">${item.price}</p>
+                <p class="details-modal" id="${item.id}">Detalles</p>
             </figure>
         </div>
     `;
