@@ -40,7 +40,8 @@ function handleItemsRoutes(req, res) {
         req.on("end", () => {
             const items = readData();
             const nuevo = JSON.parse(body);
-            nuevo.id = Date.now();
+            const maxId = items.reduce((max, i) => Math.max(max, Number(i.id) || 0), 0);
+            nuevo.id = maxId + 1;
             items.push(nuevo);
             writeData(items);
             res.end(JSON.stringify(nuevo));
