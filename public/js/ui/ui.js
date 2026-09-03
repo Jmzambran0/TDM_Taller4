@@ -28,7 +28,7 @@ export function showModalCatalogo(item) {
     const modalImg = document.getElementById("modal-catalogo-img");
     const modalDesc = document.getElementById("modal-catalogo-descripcion");
     const modalPrice = document.getElementById("modal-catalogo-precio");
-    const modalSize = document.getElementById("modal-catalogo-categoria");
+    const modalCategory = document.getElementById("modal-catalogo-categoria");
     const modalStock = document.getElementById("modal-catalogo-stock");
 
     if (modalName) modalName.textContent = item.name || "";
@@ -36,7 +36,7 @@ export function showModalCatalogo(item) {
     if (modalImg) modalImg.src = item.image || "";
     if (modalDesc) modalDesc.textContent = item.description || "";
     if (modalPrice) modalPrice.textContent = item.price || "Gratuito";
-    if (modalSize) modalSize.textContent = item.size || item.talla || "Sin categoría";
+    if (modalCategory) modalCategory.textContent = item.category || "Sin categoría";
     if (modalStock) modalStock.textContent = item.stock || "Sin existencias";
 
     if (modalOverlay) {

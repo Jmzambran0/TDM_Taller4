@@ -32,7 +32,8 @@ function renderItem(item) {
             </figure>
         </div>
     `;
-    card.addEventListener("click", () => showModalCatalogo(item));
+    const detailsBtn = card.querySelector(".details-modal");
+    detailsBtn.addEventListener("click", () => showModalCatalogo(item));
     catalogContainer.appendChild(card);
 }
 

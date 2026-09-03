@@ -1,22 +1,32 @@
 [
   {
-    "name": "Objeto 1",
-    "description": "Descripción 1",
-    "id": 1,
-    "price": 1000,
-    "category": "Categoría 1",
-    "stock": 0,
-    "createdDate": "30/05/2023",
-    "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQUAbu-8Lkb3QiRaudn91AYcgw8PmtQJq5oN15bJqiwEHwnUeDAraF2VCI&s=10"
+    "name": "Audífonos Bluetooth XT-200",
+    "description": "Audífonos inalámbricos con cancelación de ruido, 20h de batería",
+    "price": "89900",
+    "category": "Electrónica",
+    "stock": "35",
+    "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTjWiH9RQQ1yuqSTSR2m7V6eXtY7jRHhSp-8dAij3qyLQ&s=10",
+    "createdDate": "2/9/2026",
+    "id": 1
   },
   {
-    "name": "Objeto 2",
-    "description": "Descripción 2",
-    "id": 2,
-    "price": 0,
-    "category": "Categoría 2",
-    "stock": 25,
-    "createdDate": "30/08/2023",
-    "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQUAbu-8Lkb3QiRaudn91AYcgw8PmtQJq5oN15bJqiwEHwnUeDAraF2VCI&s=10"
+    "name": "Chaqueta Impermeable Trekking",
+    "description": "Chaqueta ligera resistente al agua, talla M-XL, varios colores",
+    "price": "129900",
+    "category": "Ropa",
+    "stock": "20",
+    "image": "https://contents.mediadecathlon.com/p2939227/k$014ca5534cf9d84ab0c4ea93b6ff3d80/chaqueta-3en1-impermeable-hombre-viaje-trekking-travel-100.jpg",
+    "createdDate": "2/9/2026",
+    "id": 2
+  },
+  {
+    "name": "Cien Años de Soledad",
+    "description": "Novela de Gabriel García Márquez, edición tapa blanda",
+    "price": "45000",
+    "category": "Libros",
+    "stock": "50",
+    "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ6CqdPpwBZ8kad38j97MT9udpdAR06o6eUkJ02XmyYTQ&s=10",
+    "createdDate": "2/9/2026",
+    "id": 3
   }
 ]
