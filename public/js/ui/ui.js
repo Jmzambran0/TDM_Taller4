@@ -1,4 +1,5 @@
 const MAX_STAT = 255;
+const DEFAULT_IMAGE = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQUAbu-8Lkb3QiRaudn91AYcgw8PmtQJq5oN15bJqiwEHwnUeDAraF2VCI&s=10";
 
 export function renderItems(items, tableBody) {
     tableBody.innerHTML = "";
@@ -33,7 +34,7 @@ export function showModalCatalogo(item) {
 
     if (modalName) modalName.textContent = item.name || "";
     if (modalId) modalId.textContent = item.id ? "#" + item.id.toString().padStart(3, "0") : "";
-    if (modalImg) modalImg.src = item.image || "";
+    if (modalImg) modalImg.src = item.image !== "" ? item.image : DEFAULT_IMAGE;
     if (modalDesc) modalDesc.textContent = item.description || "";
     if (modalPrice) modalPrice.textContent = item.price || "Gratuito";
     if (modalSize) modalSize.textContent = item.size || item.talla || "N/A";

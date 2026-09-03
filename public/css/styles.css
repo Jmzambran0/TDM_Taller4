@@ -286,3 +286,31 @@ td {
     transform: scale(1.1);
 }
 
+.notice {
+    display:relative;
+    text-align: center;
+    font-size: var(--md);
+    color: var(--gris);
+    margin: 0;
+    padding: 0;
+
+}
+.no-items {
+    text-align: center;
+    font-size: var(--md);
+    color: var(--gris);
+    margin-top: 40px;
+}
+.load-error {
+    text-align: center;
+    font-size: var(--md);
+    color: var(--red);
+    margin-top: 20px;
+    font-weight: bold;
+}
+.error-icon {
+    display: inline-block;
+    width: 60px;
+    height: 60px;
+    margin-right: 8px;
+}
