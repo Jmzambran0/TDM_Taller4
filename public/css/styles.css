@@ -1,8 +1,11 @@
 /* index.html */
 :root {
-    --red: #cf595f;
+    --red: #c50b15;
     --details: #cf595f;
+    --azul: #446592;
+    --gris:#555;
     --white: #FFFFFF;
+    --verde: #2e9e44;
     --black: #000000;
     --silver: #C7C7C7;
     --text-input-field: #F7F7F7;
@@ -15,13 +18,13 @@
 }
 
 body {
-    font-family: Arial, sans-serif;
+    font-family: 'Quicksand', sans-serif;
     margin: 20px;
-    background: #f9f9f9;
+    background: var(--white);
 }
 
 h1 {
-    color: #333;
+    color: var(--black);
 }
 
 form {
@@ -51,7 +54,8 @@ table {
     background: white;
 }
 
-th, td {
+th,
+td {
     border: 1px solid #ddd;
     padding: 8px;
     text-align: left;
@@ -59,7 +63,7 @@ th, td {
 
 /* Navbar */
 .navbar {
-    background: #333;
+    background: var(--azul);
     padding: 0.5rem;
 }
 
@@ -72,7 +76,7 @@ th, td {
 }
 
 .navbar a {
-    color: white;
+    color: var(--white);
     text-decoration: none;
 }
 
@@ -92,7 +96,18 @@ th, td {
     width: var(--card-size);
     background: rgb(255, 255, 255);
     border-radius: 12px;
-    box-shadow: 0 4px 5px rgba(0,0,0,0.3);
+    box-shadow: 0 4px 5px rgba(0, 0, 0, 0.3);
+    cursor: pointer;
+    transform-style: preserve-3d;
+    transition: transform 0.15s ease-out, box-shadow 0.3s ease;
+    will-change: transform;
+}
+.product-card.tilting {
+    transition: transform 0.05s linear;
+}
+
+.product-card:hover {
+    box-shadow: 0 20px 35px rgba(0, 0, 0, 0.35);
 }
 .product-card img {
     width: var(--card-size);
@@ -100,6 +115,7 @@ th, td {
     border-radius: 20px;
     object-fit: cover;
 }
+
 .product-info {
     display: flex;
     flex-direction: column;
@@ -107,11 +123,13 @@ th, td {
     margin: 0;
     margin-top: 12px;
 }
+
 .product-info div p {
     font-weight: bold;
     font-size: var(--md);
     margin: 0;
 }
+
 .product-info figure {
     margin: 0;
     display: flex;
@@ -132,34 +150,44 @@ th, td {
 
 /*estilos para el modal*/
 .modal-overlay {
-    display: none;
-    visibility: visible;
-    opacity: 1;
+    display: flex;
+    visibility: hidden;
+    opacity: 0;
     position: fixed;
-    z-index: 1;
+    z-index: 1000;
     left: 0;
     top: 0;
     width: 100%;
     height: 100%;
+    perspective: 1000px;
+    transform-style: preserve-3d;
+    transition: transform 0.4s ease, box-shadow 0.3s ease;
     align-items: center;
     justify-content: center;
     background-color: rgba(0, 0, 0, 0.5);
     transition: opacity 0.3s ease, visibility 0.3s ease;
 }
+
 .modal-overlay.active {
-    display: flex; 
+    display: flex;
+    visibility: visible;
+    opacity: 1;
+    pointer-events: auto;
 }
+
 .modal-content {
     background-color: var(--white);
-    margin: 10% auto;
+    margin: auto;
     padding: 20px;
-    border: 1px solid #888;
+    border: 2px solid var(--azul);
     width: 80%;
     max-width: 500px;
     height: auto;
     max-height: fit-content;
     border-radius: 20px;
     box-shadow: 0 12px 40px rgba(0, 0, 0, 0.6), 0 0 0 3px var(--border-glow);
+    transform: translateY(20px) scale(0.7);
+    transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 
     img {
         width: 60%;
@@ -167,14 +195,78 @@ th, td {
         margin: 0 auto;
         align-self: center;
     }
-
-    transform: translateY(20px) scale(0.7);
-    transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
+#modal-catalogo-name {
+    /* Título "Objeto 1" en degradado llamativo */
+    background: linear-gradient(135deg, var(--red) 0%, #ff6b35 50%, var(--details) 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    text-shadow: none;
+    font-weight: 900;
+    letter-spacing: 0.3px;
+    filter: drop-shadow(1px 2px 2px rgba(0, 0, 0, 0.2));
+}
+
+.modal-info p strong {
+    color: var(--azul);
+    text-shadow: 1px 1px 1.5px rgba(0, 0, 0, 0.1);
+}
+
+#modal-catalogo-id {
+    display: inline-block;
+    background: var(--silver);
+    color: var(--black);
+    font-weight: bold;
+    font-size: var(--sm);
+    padding: 2px 10px;
+    border-radius: 20px;
+    text-shadow: none;
+}
+
+#modal-catalogo-precio {
+    color: var(--red);
+    font-size: 22px;
+    font-weight: 900;
+    text-shadow: 1px 1px 2px rgba(197, 11, 21, 0.25);
+}
+
+#modal-catalogo-precio::before {
+    content: "$ ";
+}
+
+#modal-catalogo-categoria {
+    display: inline-block;
+    background: var(--azul);
+    color: var(--white);
+    padding: 3px 10px;
+    border-radius: 12px;
+    font-size: var(--sm);
+    font-weight: bold;
+    text-shadow: none;
+}
+
+#modal-catalogo-stock {
+    display: inline-block;
+    font-weight: 700;
+    padding: 3px 10px;
+    border-radius: 12px;
+    color: var(--white);
+    background: var(--verde);
+    text-shadow: none;
+}
+
+#modal-catalogo-descripcion {
+    color:var(--gris); ;
+    text-shadow: none;
+}
+
+
+/*estilos para cerrar el modal*/
 .close-modal {
     color: var(--red);
     float: right;
-    font-size: 60px;
+    font-size: 40px;
     font-weight: bold;
     cursor: pointer;
     padding: 0;
@@ -185,5 +277,4 @@ th, td {
     color: var(--black);
     transform: scale(1.1);
 }
-
 
