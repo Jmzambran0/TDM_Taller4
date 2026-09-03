@@ -8,10 +8,10 @@ export function renderItems(items, tableBody) {
             <td>${item.id}</td>
             <td>${item.name}</td>
             <td>${item.description || ""}</td>
-            <td>${item.price || "Gratuito"}</td>
+            <td>${item.price || "Gratis"}</td>
             <td>${item.category || ""}</td>
-            <td>${item.stock || "Sin existencias"}</td>
-            <td>${item.createdDate || new Date().toLocaleDateString()}</td>
+            <td>${item.stock || "0"}</td>
+            <td>${item.createdDate || "Fecha no disponible"}</td>
             <td>
                 <button class="btn-edit" data-id="${item.id}">Editar</button>
                 <button class="btn-delete" data-id="${item.id}">Eliminar</button>
@@ -64,5 +64,9 @@ export function resetForm(form, submitBtn) {
 export function fillForm(form, item, submitBtn) {
     form.querySelector("#name").value = item.name;
     form.querySelector("#description").value = item.description || "";
+    form.querySelector("#price").value = item.price || "0";
+    form.querySelector("#category").value = item.category || "";
+    form.querySelector("#stock").value = item.stock || "0";
+    form.querySelector("#image").value = item.image || "";
     if (submitBtn) submitBtn.textContent = "Guardar cambios";
 }
