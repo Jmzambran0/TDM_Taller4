@@ -3,7 +3,7 @@
     --red: #c50b15;
     --details: #cf595f;
     --azul: #446592;
-    --gris:#555;
+    --gris: #555;
     --white: #FFFFFF;
     --verde: #2e9e44;
     --black: #000000;
@@ -31,7 +31,7 @@ form {
     margin-bottom: 20px;
 }
 
-input, select {
+input {
     padding: 8px;
     margin-right: 5px;
 }
@@ -46,14 +46,6 @@ button {
 
 button:hover {
     background: #005fa3;
-}
-
-.btn-delete {
-    background: var(--red);
-}
-
-.btn-delete:hover {
-    background: #a33b3f;
 }
 
 table {
@@ -110,6 +102,7 @@ td {
     transition: transform 0.15s ease-out, box-shadow 0.3s ease;
     will-change: transform;
 }
+
 .product-card.tilting {
     transition: transform 0.05s linear;
 }
@@ -117,6 +110,7 @@ td {
 .product-card:hover {
     box-shadow: 0 20px 35px rgba(0, 0, 0, 0.35);
 }
+
 .product-card img {
     width: var(--card-size);
     height: var(--card-size);
@@ -183,6 +177,12 @@ td {
     pointer-events: auto;
 }
 
+.modal-header {
+    display: grid;
+    grid-template-columns: 1fr auto 1fr;
+    align-items: center;
+}
+
 .modal-content {
     background-color: var(--white);
     margin: auto;
@@ -193,7 +193,7 @@ td {
     height: auto;
     max-height: fit-content;
     border-radius: 20px;
-    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.6), 0 0 0 3px var(--border-glow);
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.6), 0 0 0 3px var(--azul);
     transform: translateY(20px) scale(0.7);
     transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 
@@ -204,14 +204,18 @@ td {
         align-self: center;
     }
 }
+
 #modal-catalogo-name {
     /* Título "Objeto 1" en degradado llamativo */
-    background: linear-gradient(135deg, var(--red) 0%, #ff6b35 50%, var(--details) 100%);
+    background: linear-gradient(135deg, var(--black) 0%, var(--gris) 50%, var(--black) 100%);
     -webkit-background-clip: text;
+    text-align: center;
     background-clip: text;
     -webkit-text-fill-color: transparent;
     text-shadow: none;
     font-weight: 900;
+    grid-column: 2;
+    margin: 0;
     letter-spacing: 0.3px;
     filter: drop-shadow(1px 2px 2px rgba(0, 0, 0, 0.2));
 }
@@ -265,7 +269,8 @@ td {
 }
 
 #modal-catalogo-descripcion {
-    color:var(--gris); ;
+    color: var(--gris);
+    ;
     text-shadow: none;
 }
 
@@ -276,6 +281,9 @@ td {
     float: right;
     font-size: 40px;
     font-weight: bold;
+    grid-column: 3;
+    justify-self: end;
+    float: none;
     cursor: pointer;
     padding: 0;
     transition: transform 0.2s ease, color 0.2s ease;
@@ -285,4 +293,3 @@ td {
     color: var(--black);
     transform: scale(1.1);
 }
-
