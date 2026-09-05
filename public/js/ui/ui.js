@@ -35,9 +35,9 @@ export function showModalCatalogo(item) {
     if (modalId) modalId.textContent = item.id ? "#" + item.id.toString().padStart(3, "0") : "";
     if (modalImg) modalImg.src = item.image || "";
     if (modalDesc) modalDesc.textContent = item.description || "";
-    if (modalPrice) modalPrice.textContent = item.price || "Gratuito";
+    if (modalPrice) modalPrice.textContent = "$" + Number(item.price).toLocaleString('es-ES') || "Sin precio establecido";
     if (modalCategory) modalCategory.textContent = item.category || "Sin categoría";
-    if (modalStock) modalStock.textContent = item.stock || "Sin existencias";
+    if (modalStock) modalStock.textContent = item.stock + " disponibles" || "Sin existencias";
 
     if (modalOverlay) {
         modalOverlay.classList.add('active');

@@ -27,7 +27,7 @@ function renderItem(item) {
                 <p>${item.name}</p>
             </div>
             <figure>
-                <p class="card-price">${item.price}</p>
+                <p class="card-price">$${Number(item.price).toLocaleString('es-ES')}</p>
                 <p class="details-modal" id="${item.id}">Detalles</p>
             </figure>
         </div>
