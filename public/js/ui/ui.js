@@ -8,7 +8,7 @@ export function renderItems(items, tableBody) {
             <td>${item.id}</td>
             <td>${item.name}</td>
             <td>${item.description || ""}</td>
-            <td>${item.price || "Gratis"}</td>
+            <td>${Number(item.price) || "Gratis"}</td>
             <td>${item.category || ""}</td>
             <td>${item.stock || "0"}</td>
             <td>${item.createdDate || "Fecha no disponible"}</td>
@@ -31,11 +31,13 @@ export function showModalCatalogo(item) {
     const modalCategory = document.getElementById("modal-catalogo-categoria");
     const modalStock = document.getElementById("modal-catalogo-stock");
 
+    const price = Number(item.price)
+
     if (modalName) modalName.textContent = item.name || "";
     if (modalId) modalId.textContent = item.id ? "#" + item.id.toString().padStart(3, "0") : "";
     if (modalImg) modalImg.src = item.image || "";
     if (modalDesc) modalDesc.textContent = item.description || "";
-    if (modalPrice) modalPrice.textContent = "$" + Number(item.price).toLocaleString('es-ES') || "Sin precio establecido";
+    if (modalPrice) modalPrice.textContent = price && "$" + price || "Gratis";
     if (modalCategory) modalCategory.textContent = item.category || "Sin categoría";
     if (modalStock) modalStock.textContent = item.stock + " disponibles" || "Sin existencias";
 

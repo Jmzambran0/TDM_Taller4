@@ -18,6 +18,7 @@ async function loadCatalog() {
 }
 
 function renderItem(item) {
+    const price = Number(item.price)
     const card = document.createElement("div");
     card.classList.add("product-card");
     card.innerHTML = `
@@ -27,7 +28,7 @@ function renderItem(item) {
                 <p>${item.name}</p>
             </div>
             <figure>
-                <p class="card-price">$${Number(item.price).toLocaleString('es-ES')}</p>
+                <p class="card-price">${price && "$" + price.toLocaleString('es-ES') || "Gratis"}</p>
                 <p class="details-modal" id="${item.id}">Detalles</p>
             </figure>
         </div>
