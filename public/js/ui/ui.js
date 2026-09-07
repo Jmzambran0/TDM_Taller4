@@ -9,7 +9,7 @@ export function renderItems(items, tableBody) {
             <td>${item.id}</td>
             <td>${item.name}</td>
             <td>${item.description || ""}</td>
-            <td>${item.price || "Gratis"}</td>
+            <td>${Number(item.price) || "Gratis"}</td>
             <td>${item.category || ""}</td>
             <td>${item.stock || "0"}</td>
             <td>${item.createdDate || "Fecha no disponible"}</td>
@@ -29,16 +29,18 @@ export function showModalCatalogo(item) {
     const modalImg = document.getElementById("modal-catalogo-img");
     const modalDesc = document.getElementById("modal-catalogo-descripcion");
     const modalPrice = document.getElementById("modal-catalogo-precio");
-    const modalSize = document.getElementById("modal-catalogo-categoria");
+    const modalCategory = document.getElementById("modal-catalogo-categoria");
     const modalStock = document.getElementById("modal-catalogo-stock");
+
+    const price = Number(item.price)
 
     if (modalName) modalName.textContent = item.name || "";
     if (modalId) modalId.textContent = item.id ? "#" + item.id.toString().padStart(3, "0") : "";
     if (modalImg) modalImg.src = item.image !== "" ? item.image : DEFAULT_IMAGE;
     if (modalDesc) modalDesc.textContent = item.description || "";
-    if (modalPrice) modalPrice.textContent = item.price || "Gratuito";
-    if (modalSize) modalSize.textContent = item.size || item.talla || "Sin categoría";
-    if (modalStock) modalStock.textContent = item.stock || "Sin existencias";
+    if (modalPrice) modalPrice.textContent = price && "$" + price || "Gratis";
+    if (modalCategory) modalCategory.textContent = item.category || "Sin categoría";
+    if (modalStock) modalStock.textContent = item.stock + " disponibles" || "Sin existencias";
 
     if (modalOverlay) {
         modalOverlay.classList.add('active');

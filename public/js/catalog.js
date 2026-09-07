@@ -26,6 +26,7 @@ async function loadCatalog() {
 }
 
 function renderItem(item) {
+    const price = Number(item.price)
     const card = document.createElement("div");
     card.classList.add("product-card");
     card.innerHTML = `
@@ -35,12 +36,13 @@ function renderItem(item) {
                 <p>${item.name}</p>
             </div>
             <figure>
-                <p class="card-price">${item.price}</p>
+                <p class="card-price">${price && "$" + price.toLocaleString('es-ES') || "Gratis"}</p>
                 <p class="details-modal" id="${item.id}">Detalles</p>
             </figure>
         </div>
     `;
-    card.addEventListener("click", () => showModalCatalogo(item));
+    const detailsBtn = card.querySelector(".details-modal");
+    detailsBtn.addEventListener("click", () => showModalCatalogo(item));
     catalogContainer.appendChild(card);
 }
 
