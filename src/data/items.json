@@ -28,5 +28,125 @@
     "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ6CqdPpwBZ8kad38j97MT9udpdAR06o6eUkJ02XmyYTQ&s=10",
     "createdDate": "2/9/2026",
     "id": 3
+  },
+  {
+    "name": "Smartwatch FitTrack 3",
+    "description": "Monitor de ritmo cardíaco, GPS integrado, resistente al agua",
+    "price": "249900",
+    "category": "Electrónica",
+    "stock": "18",
+    "image": "https://smselectronic.com/wp-content/uploads/2024/02/fit-3-negro-samsung.png",
+    "createdDate": "6/9/2026",
+    "id": 4
+  },
+  {
+    "name": "Mouse Inalámbrico Ergo",
+    "description": "Sensor óptico de alta precisión, batería recargable USB-C",
+    "price": "45900",
+    "category": "Electrónica",
+    "stock": "50",
+    "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRS3H-vRE93jG76rY-aJ8FzblhSWyY_cIdvvHd99JeFHg&s=10",
+    "createdDate": "6/9/2026",
+    "id": 5
+  },
+  {
+    "name": "Parlante Bluetooth PowerSound",
+    "description": "Sonido 360°, resistente al agua, 12h de batería",
+    "price": "99900",
+    "category": "Electrónica",
+    "stock": "22",
+    "image": "https://media.falabella.com/falabellaCO/145590089_01/w=1500,h=1500,fit=cover",
+    "createdDate": "6/9/2026",
+    "id": 6
+  },
+  {
+    "name": "Cargador Rápido 65W",
+    "description": "Compatible con laptops y celulares, cable incluido",
+    "price": "59900",
+    "category": "Electrónica",
+    "stock": "40",
+    "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRqUgthw6Obc9x-O0zuRBpgtlpW8taj3cd4gRD-Nozn4A&s",
+    "createdDate": "6/9/2026",
+    "id": 7
+  },
+  {
+    "name": "Camiseta Deportiva DryFit",
+    "description": "Tela transpirable, tallas S-XXL, varios colores",
+    "price": "39900",
+    "category": "Ropa",
+    "stock": "60",
+    "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQO4ENRofwRFOdfKHvvDDSXSvi0G3F0ywLEfrWHv8fgNw&s=10",
+    "createdDate": "6/9/2026",
+    "id": 8
+  },
+  {
+    "name": "Jean Slim Fit Hombre",
+    "description": "Denim elástico, corte moderno, tallas 28-38",
+    "price": "89900",
+    "category": "Ropa",
+    "stock": "35",
+    "image": "https://chevignon.vtexassets.com/arquivos/ids/2113362/63_332H012_AZU184140_0.jpg?v=639137640746270000",
+    "createdDate": "6/9/2026",
+    "id": 9
+  },
+  {
+    "name": "Zapatillas Running Pro X",
+    "description": "Zapatillas deportivas con amortiguación de gel",
+    "price": "159900",
+    "category": "Ropa",
+    "stock": "40",
+    "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSWXlupswUeubHdYEwD5Iy4roPzsQotndQax2xIFynxDD72OgaDC-8sUjI&s=10",
+    "createdDate": "6/9/2026",
+    "id": 10
+  },
+  {
+    "name": "Buzo Canguro Unisex",
+    "description": "Algodón perchado, bolsillo frontal, tallas S-XL",
+    "price": "69900",
+    "category": "Ropa",
+    "stock": "45",
+    "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSJ4K0VDhRvumG3JqV0bZuz4WWZ0rHE2u8cmKAndB7IphJnuWoa7-FVhICe&s=10",
+    "createdDate": "6/9/2026",
+    "id": 11
+  },
+  {
+    "name": "Sapiens: De Animales a Dioses",
+    "description": "Ensayo sobre historia de la humanidad, tapa blanda",
+    "price": "58000",
+    "category": "Libros",
+    "stock": "25",
+    "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTxsl6IqHtrcCmiATpaaro6BDjcyvwTN_SucLL89YT1J9e4hPy-LTtlY_Y&s=10",
+    "createdDate": "6/9/2026",
+    "id": 12
+  },
+  {
+    "name": "Rayuela",
+    "description": "Novela de Julio Cortázar, edición conmemorativa",
+    "price": "47000",
+    "category": "Libros",
+    "stock": "20",
+    "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS_I6SHiX_ent66Jtv858PlgCMr-VnkP7jXl97Lr8XX_Vfr6vyg0yzx1xfj&s=10",
+    "createdDate": "6/9/2026",
+    "id": 13
+  },
+  {
+    "name": "El Principito",
+    "description": "Edición ilustrada, tapa blanda, clásico infantil",
+    "price": "28000",
+    "category": "Libros",
+    "stock": "55",
+    "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRqeZLbd1cNSQFmK13chSOERqCpmXY0_CjtIH8KXr4jTg&s=10",
+    "createdDate": "6/9/2026",
+    "id": 14
+  },
+  {
+    "name": "Mil Años de Historia",
+    "description": "Ensayo histórico ilustrado, tapa dura, 450 páginas",
+    "price": "62000",
+    "category": "Libros",
+    "stock": "30",
+    "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQCUpvGWhRoHHmSMsaZ3FdoCMz7Phajo2oUFg_3nZCJ9Q&s=10",
+    "createdDate": "6/9/2026",
+    "id": 15
   }
 ]

@@ -24,7 +24,9 @@ body {
 }
 
 h1 {
-    color: var(--black);
+    color: var(--azul);
+    align-items: center;
+    text-align: center;
 }
 
 form {
