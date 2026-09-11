@@ -1,8 +1,10 @@
-import { closeModal, showModalCatalogo} from "./ui/ui.js";
+import { closeModal, showModalCatalogo } from "./ui/ui.js";
+
 // Constante con la URL base de la API
 const API_URL = "/api/items";
 
 const catalogContainer = document.getElementById("catalogContainer");
+const modal = document.getElementById("catalogo-modal");
 
 // Función principal para cargar los items desde la API
 async function loadCatalog() {
@@ -22,7 +24,7 @@ function renderItem(item) {
     const card = document.createElement("div");
     card.classList.add("product-card");
     card.innerHTML = `
-        <img src="${item.image}" alt="imagen del producto">
+        <img src="${item.image}" alt="imagen del producto" class="w-full h-40 object-cover rounded-lg">
         <div class="product-info">
             <div class="card-title">
                 <p>${item.name}</p>
@@ -38,5 +40,12 @@ function renderItem(item) {
     catalogContainer.appendChild(card);
 }
 
+// Cerrar modal con el botón "X"
+document.querySelector(".close-modal")?.addEventListener("click", closeModal);
+
+// Cerrar modal al hacer clic fuera del contenido (en el overlay)
+modal?.addEventListener("click", (e) => {
+    if (e.target === modal) closeModal();
+});
 
 loadCatalog();

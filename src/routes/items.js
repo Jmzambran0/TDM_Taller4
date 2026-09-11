@@ -1,97 +1,87 @@
-const fs = require("fs");
-const path = require("path");
+import fs from "node:fs";
+import path from "node:path";
+import { Router } from "express";
 
-const DATA_PATH = path.join(__dirname, "..", "data", "items.json");
+const router = Router();
+const DATA_PATH = path.join(import.meta.dirname, "..", "data", "items.json");
 
+// Helper para leer el JSON
 function readData() {
-    return JSON.parse(fs.readFileSync(DATA_PATH, "utf8"));
+    try {
+        const data = fs.readFileSync(DATA_PATH, "utf8");
+        return JSON.parse(data);
+    } catch {
+        return [];
+    }
 }
 
+// Helper para escribir el JSON
 function writeData(data) {
     fs.writeFileSync(DATA_PATH, JSON.stringify(data, null, 2));
 }
 
-function handleItemsRoutes(req, res) {
-    if (!req.url.startsWith("/api/items")) return false;
+// GET /api/items - Obtener todos los items
+router.get("/", (req, res) => {
+    res.json(readData());
+});
 
-    res.setHeader("Content-Type", "application/json");
+// GET /api/items/:id - Obtener un item por ID
+router.get("/:id", (req, res) => {
+    const id = parseInt(req.params.id, 10);
+    const items = readData();
+    const item = items.find(i => Number(i.id) === id);
 
-    // GET /api/items
-    if (req.method === "GET" && req.url === "/api/items") {
-        res.end(JSON.stringify(readData()));
-        return true;
+    if (!item) {
+        return res.status(404).json({ error: "No encontrado" });
     }
 
-    // GET /api/items/:id
-    if (req.method === "GET" && req.url.startsWith("/api/items/")) {
-        const id = parseInt(req.url.split("/").pop());
+    res.json(item);
+});
 
-        if (!isNaN(id)) {
-            const item = readData().find(i => i.id === id);
-            res.end(JSON.stringify(item || { error: "No encontrado" }));
-            return true;
-        }
+// POST /api/items - Crear un nuevo item
+router.post("/", (req, res) => {
+    const items = readData();
+    const nuevo = req.body; // Express analiza el JSON automáticamente
+
+    const maxId = items.reduce((max, i) => Math.max(max, Number(i.id) || 0), 0);
+    nuevo.id = maxId + 1;
+    nuevo.createdAt = new Date().toISOString();
+
+    items.push(nuevo);
+    writeData(items);
+
+    res.status(201).json(nuevo);
+});
+
+// PUT /api/items/:id - Actualizar un item
+router.put("/:id", (req, res) => {
+    const id = parseInt(req.params.id, 10);
+    let items = readData();
+    const idx = items.findIndex(i => Number(i.id) === id);
+
+    if (idx === -1) {
+        return res.status(404).json({ error: "No encontrado" });
     }
 
-    // POST /api/items
-    if (req.method === "POST" && req.url === "/api/items") {
-        let body = "";
-        req.on("data", chunk => body += chunk);
-        req.on("end", () => {
-            const items = readData();
-            const nuevo = JSON.parse(body);
-            const maxId = items.reduce((max, i) => Math.max(max, Number(i.id) || 0), 0);
-            nuevo.id = maxId + 1;
-            items.push(nuevo);
-            writeData(items);
-            res.end(JSON.stringify(nuevo));
-        });
-        return true;
+    const updated = { ...items[idx], ...req.body, id };
+    items[idx] = updated;
+    writeData(items);
+
+    res.json(updated);
+});
+
+// DELETE /api/items/:id - Eliminar un item
+router.delete("/:id", (req, res) => {
+    const id = parseInt(req.params.id, 10);
+    let items = readData();
+    const newItems = items.filter(i => Number(i.id) !== id);
+
+    if (newItems.length === items.length) {
+        return res.status(404).json({ error: "No encontrado" });
     }
 
-    // PUT /api/items/:id
-    if (req.method === "PUT" && req.url.startsWith("/api/items/")) {
-        const id = parseInt(req.url.split("/").pop());
+    writeData(newItems);
+    res.json({ mensaje: "Eliminado" });
+});
 
-        if (!isNaN(id)) {
-            let body = "";
-            req.on("data", chunk => body += chunk);
-            req.on("end", () => {
-                let items = readData();
-                const idx = items.findIndex(i => i.id === id);
-
-                if (idx >= 0) {
-                    const updated = { ...items[idx], ...JSON.parse(body), id };
-                    items[idx] = updated;
-                    writeData(items);
-                    res.end(JSON.stringify(updated));
-                } else {
-                    res.end(JSON.stringify({ error: "No encontrado" }));
-                }
-            });
-            return true;
-        }
-    }
-
-    // DELETE /api/items/:id
-    if (req.method === "DELETE" && req.url.startsWith("/api/items/")) {
-        const id = parseInt(req.url.split("/").pop());
-
-        if (!isNaN(id)) {
-            let items = readData();
-            const newItems = items.filter(i => i.id !== id);
-
-            if (newItems.length !== items.length) {
-                writeData(newItems);
-                res.end(JSON.stringify({ mensaje: "Eliminado" }));
-            } else {
-                res.end(JSON.stringify({ error: "No encontrado" }));
-            }
-            return true;
-        }
-    }
-
-    return false;
-}
-
-module.exports = handleItemsRoutes;
+export default router;

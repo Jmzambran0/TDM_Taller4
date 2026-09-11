@@ -1,0 +1,333 @@
+/* ============================================================
+   Archivo FUENTE de Tailwind v4.
+   ============================================================ */
+
+@import "tailwindcss";
+
+@source "../../public/**/*.html";
+
+/* ------------------------------------------------------------
+   1. Design Tokens (Variables compartidas)
+   ------------------------------------------------------------ */
+@theme {
+    --color-brand-50: oklch(0.97 0.014 254);
+    --color-brand-100: oklch(0.93 0.032 255);
+    --color-brand-500: oklch(0.62 0.19 259);
+    --color-brand-600: oklch(0.55 0.2 262);
+    --color-brand-700: oklch(0.49 0.19 264);
+
+    --color-surface: oklch(0.99 0.002 250);
+    --color-ink: oklch(0.28 0.02 265);
+
+    --radius-card: 0.875rem;
+}
+
+:root {
+    --red: #c50b15;
+    --details: #cf595f;
+    --azul: #446592;
+    --gris: #555;
+    --white: #ffffff;
+    --verde: #2e9e44;
+    --black: #000000;
+    --silver: #c7c7c7;
+    --text-input-field: #f7f7f7;
+    --sm: 14px;
+    --md: 16px;
+    --lg: 18px;
+    --card-size: 200px;
+}
+
+/* ------------------------------------------------------------
+   2. Componentes Tailwind
+   ------------------------------------------------------------ */
+@utility btn {
+    @apply inline-flex cursor-pointer items-center justify-center gap-2 rounded-lg px-4 py-2
+           text-sm font-medium transition-colors focus-visible:outline-2
+           focus-visible:outline-offset-2 focus-visible:outline-brand-600;
+}
+
+@utility btn-primary {
+    @apply bg-brand-600 text-white hover:bg-brand-700;
+}
+
+@utility btn-ghost {
+    @apply border border-slate-300 bg-white text-slate-700 hover:bg-slate-100;
+}
+
+@utility btn-danger {
+    @apply bg-red-50 text-red-700 hover:bg-red-100;
+}
+
+@utility input {
+    @apply w-full rounded-lg border border-slate-300 bg-white px-3 py-2 text-sm
+           text-ink placeholder:text-slate-400 focus:border-brand-500 focus:outline-none
+           focus:ring-2 focus:ring-brand-100;
+}
+
+/* ------------------------------------------------------------
+   3. Estilos Personalizados Previos (Catálogo y Modal)
+   ------------------------------------------------------------ */
+
+/* Navbar */
+.navbar {
+    background: var(--azul);
+    padding: 18px 10px;
+    border-radius: 8px;
+}
+
+.navbar ul {
+    width: fit-content;
+    list-style: none;
+    display: flex;
+    gap: 1rem;
+    margin: 0;
+    padding: 0;
+}
+
+.navbar a {
+    color: var(--white);
+    text-decoration: none;
+    font-size: var(--lg);
+    padding: 0 20px;
+}
+
+.navbar a:hover {
+    font-weight: bold;
+}
+
+/* Grilla e Ítems */
+.catalog-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, var(--card-size));
+    gap: 40px;
+    place-content: center;
+}
+
+.product-card {
+    padding: 12px;
+    width: var(--card-size);
+    background: rgb(255, 255, 255);
+    border-radius: 12px;
+    box-shadow: 0 4px 5px rgba(0, 0, 0, 0.3);
+    cursor: pointer;
+    transform-style: preserve-3d;
+    transition: transform 0.15s ease-out, box-shadow 0.3s ease;
+    will-change: transform;
+}
+
+.product-card.tilting {
+    transition: transform 0.05s linear;
+}
+
+.product-card:hover {
+    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.35);
+}
+
+.product-card img {
+    width: var(--card-size);
+    height: var(--card-size);
+    border-radius: 20px;
+    object-fit: contain;
+}
+
+.product-info {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin: 0;
+    margin-top: 12px;
+}
+
+.product-info div p {
+    font-size: var(--md);
+    margin: 0;
+}
+
+.product-info figure {
+    margin: 0;
+    display: flex;
+    justify-content: space-between;
+    flex-direction: row;
+}
+
+.card-price {
+    font-weight: bold;
+    font-size: var(--lg);
+}
+
+.details-modal {
+    background: var(--details);
+    color: var(--white);
+    padding: 6px 8px;
+    border-radius: 8px;
+    font-weight: bold;
+    font-size: var(--sm);
+    width: fit-content;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.details-modal:hover {
+    background-color: var(--black);
+    transform: scale(1.1);
+}
+
+/* Modal */
+.modal-overlay {
+    display: flex;
+    visibility: hidden;
+    opacity: 0;
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    align-items: center;
+    justify-content: center;
+    background-color: rgba(0, 0, 0, 0.5);
+    transition: opacity 0.3s ease, visibility 0.3s ease;
+}
+
+.modal-overlay.active {
+    display: flex;
+    visibility: visible;
+    opacity: 1;
+    pointer-events: auto;
+}
+
+.modal-content {
+    background-color: var(--white);
+    margin: 40px;
+    padding: 25px;
+    width: 90%;
+    max-width: 400px;
+    height: auto;
+    max-height: 85vh;
+    border-radius: 20px;
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.4);
+    position: relative;
+    overflow-y: auto;
+}
+
+.modal-content img {
+    width: 90%;
+    max-height: 360px;
+    object-fit: contain;
+    display: block;
+    margin: 0 auto;
+    align-self: center;
+    border-radius: 10px;
+}
+
+.modal-content::-webkit-scrollbar {
+    width: 8px;
+}
+
+.modal-content::-webkit-scrollbar-track {
+    background: #f1f1f1;
+    border-radius: 10px;
+}
+
+.modal-content::-webkit-scrollbar-thumb {
+    background: #c1c1c1;
+    border-radius: 10px;
+}
+
+#modal-catalogo-name {
+    text-align: left;
+    font-weight: bold;
+    grid-column: 2;
+    margin: 0 0 20px 0;
+    padding: 0 35px 0 0;
+}
+
+.modal-info p strong {
+    color: var(--azul);
+    text-shadow: 1px 1px 1.5px rgba(0, 0, 0, 0.1);
+}
+
+#modal-catalogo-id {
+    display: inline-block;
+    background: var(--silver);
+    color: var(--black);
+    font-weight: bold;
+    font-size: var(--sm);
+    padding: 2px 10px;
+    border-radius: 20px;
+    margin: 20px 0 0 0;
+}
+
+#modal-catalogo-precio {
+    color: var(--red);
+    font-size: 22px;
+    font-weight: bold;
+}
+
+.tag {
+    display: inline-block;
+    background: var(--azul);
+    color: var(--white);
+    padding: 5px 10px;
+    border-radius: 12px;
+    font-size: var(--sm);
+    font-weight: bold;
+    text-shadow: none;
+}
+
+#modal-catalogo-categoria {
+    background: var(--azul);
+    color: var(--white);
+}
+
+#modal-catalogo-stock {
+    color: var(--white);
+    background: var(--verde);
+}
+
+#modal-catalogo-descripcion {
+    color: var(--gris);
+    text-shadow: none;
+}
+
+.close-modal {
+    position: absolute;
+    top: 15px;
+    right: 25px;
+    display: inline-block;
+    color: var(--red);
+    font-size: 45px;
+    font-weight: bold;
+    cursor: pointer;
+    padding: 0;
+    transition: transform 0.25s ease, color 0.1s ease;
+}
+
+.close-modal:hover {
+    color: var(--black);
+    transform: scale(1.1);
+}
+
+.no-items {
+    text-align: center;
+    font-size: var(--md);
+    color: var(--gris);
+    margin-top: 40px;
+}
+
+.load-error {
+    text-align: center;
+    font-size: var(--md);
+    color: var(--red);
+    margin-top: 20px;
+    font-weight: bold;
+}
+
+.error-icon {
+    display: inline-block;
+    width: 60px;
+    height: 60px;
+    margin-right: 8px;
+    transform: scale(1.2) rotate(20deg);
+}

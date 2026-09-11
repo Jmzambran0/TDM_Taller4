@@ -1,12 +1,19 @@
 import { getItems, getItem, createItem, updateItem, deleteItem } from "./services/api.js";
-import { renderItems, resetForm, fillForm } from "./ui/ui.js";
+import { renderItems, resetForm, fillForm, showToast } from "./ui/ui.js";
 
 const form = document.getElementById("itemForm");
 const tableBody = document.getElementById("itemsTable");
 const submitBtn = document.getElementById("submitBtn");
+const cancelBtn = document.getElementById("cancelBtn");
 let editingId = null;
 
-// Eventos de tabla (delegación)
+/** Vuelve al modo "crear". */
+function stopEditing() {
+    editingId = null;
+    resetForm(form, submitBtn, cancelBtn);
+}
+
+// Eventos de tabla (delegación: un solo listener para todas las filas)
 tableBody.addEventListener("click", async (e) => {
     const btn = e.target.closest("button");
     if (!btn) return;
@@ -16,57 +23,57 @@ tableBody.addEventListener("click", async (e) => {
     if (btn.classList.contains("btn-delete")) {
         try {
             await deleteItem(id);
+            if (editingId === id) stopEditing();
+            showToast("Item eliminado", "success");
             loadItems();
         } catch (err) {
             console.error("Error eliminando:", err);
-            alert("No se pudo eliminar el item.");
+            showToast(err.message);
         }
     } else if (btn.classList.contains("btn-edit")) {
         try {
+            // Segundo clic en el mismo botón = cancelar la edición
             if (editingId === id) {
-                resetForm(form, submitBtn);
-                editingId = null;
+                stopEditing();
                 return;
             }
             const item = await getItem(id);
-            fillForm(form, item, submitBtn);
+            fillForm(form, item, submitBtn, cancelBtn);
             editingId = id;
         } catch (err) {
             console.error("Error cargando item:", err);
-            alert("No se pudo cargar el item para edición.");
+            showToast(err.message);
         }
     }
 });
 
+cancelBtn.addEventListener("click", stopEditing);
+
 // Envío del form
 form.addEventListener("submit", async (e) => {
     e.preventDefault();
-    const name = form.querySelector("#name").value;
-    const description = form.querySelector("#description").value;
-    const price = form.querySelector("#price").value;
-    const category = form.querySelector("#category").value;
-    const stock = form.querySelector("#stock").value;
-    const image = form.querySelector("#image").value;
+    const name = form.querySelector("#name").value.trim();
+    const description = form.querySelector("#description").value.trim();
 
     if (!name) {
-        alert("El campo nombre es obligatorio");
+        showToast("El campo nombre es obligatorio");
         return;
     }
 
     try {
         if (editingId) {
-            await updateItem(editingId, { name, description, price, category, stock, image });
-            editingId = null;
+            await updateItem(editingId, { name, description });
+            showToast("Cambios guardados", "success");
         } else {
-            const createdDate = new Date().toLocaleDateString();
-            await createItem({ name, description, price, category, stock, image, createdDate });
+            await createItem({ name, description });
+            showToast("Item agregado", "success");
         }
 
-        resetForm(form, submitBtn);
+        stopEditing();
         loadItems();
     } catch (err) {
         console.error("Error guardando item:", err);
-        alert("No se pudo guardar el item.");
+        showToast(err.message);
     }
 });
 
@@ -77,7 +84,7 @@ async function loadItems() {
         renderItems(items, tableBody);
     } catch (err) {
         console.error("Error cargando lista:", err);
-        alert("No se pudieron cargar los items.");
+        showToast(err.message);
     }
 }
 

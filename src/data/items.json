@@ -1,20 +1,10 @@
 [
   {
-    "name": "Audífonos Bluetooth XT-200",
-    "description": "Audífonos inalámbricos con cancelación de ruido, 20h de batería",
-    "price": "89900",
-    "category": "Electrónica",
-    "stock": "35",
-    "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTjWiH9RQQ1yuqSTSR2m7V6eXtY7jRHhSp-8dAij3qyLQ&s=10",
-    "createdDate": "2/9/2026",
-    "id": 1
-  },
-  {
     "name": "Chaqueta Impermeable Trekking",
     "description": "Chaqueta ligera resistente al agua, talla M-XL, varios colores",
     "price": "129900",
     "category": "Ropa",
-    "stock": "20",
+    "stock": "21",
     "image": "https://contents.mediadecathlon.com/p2939227/k$014ca5534cf9d84ab0c4ea93b6ff3d80/chaqueta-3en1-impermeable-hombre-viaje-trekking-travel-100.jpg",
     "createdDate": "2/9/2026",
     "id": 2
@@ -148,5 +138,16 @@
     "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQCUpvGWhRoHHmSMsaZ3FdoCMz7Phajo2oUFg_3nZCJ9Q&s=10",
     "createdDate": "6/9/2026",
     "id": 15
+  },
+  {
+    "name": "pantalon",
+    "description": "es corto",
+    "price": "6000",
+    "category": "Ropa",
+    "stock": "5",
+    "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQlx87p6HOJxbAJvCBXZmm3LPF2EN85puQDUadBaFAOmw&s=10",
+    "createdDate": "10/9/2026",
+    "id": 16,
+    "createdAt": "2026-09-11T01:41:01.633Z"
   }
 ]

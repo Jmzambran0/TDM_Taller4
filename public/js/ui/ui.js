@@ -1,74 +1,83 @@
-const MAX_STAT = 255;
+export function renderItems(items, container) {
+    if (!container) return;
 
-export function renderItems(items, tableBody) {
-    tableBody.innerHTML = "";
-    items.forEach(item => {
-        const row = document.createElement("tr");
-        row.innerHTML = `
-            <td>${item.id}</td>
-            <td>${item.name}</td>
-            <td>${item.description || ""}</td>
-            <td>${Number(item.price) || "Gratis"}</td>
-            <td>${item.category || ""}</td>
-            <td>${item.stock || "0"}</td>
-            <td>${item.createdDate || "Fecha no disponible"}</td>
-            <td>
-                <button class="btn-edit" data-id="${item.id}">Editar</button>
-                <button class="btn-delete" data-id="${item.id}">Eliminar</button>
+    if (!items.length) {
+        container.innerHTML = `
+            <tr>
+                <td colspan="8" class="px-4 py-6 text-center text-slate-400">
+                    No hay productos registrados.
+                </td>
+            </tr>`;
+        return;
+    }
+
+    container.innerHTML = items.map(item => `
+        <tr class="hover:bg-slate-50 border-b border-slate-100">
+            <td class="px-4 py-3 font-mono text-xs text-slate-500">${item.id}</td>
+            <td class="px-4 py-3 font-medium text-slate-800">${item.name}</td>
+            <td class="px-4 py-3 text-slate-500">${item.description || '-'}</td>
+            <td class="px-4 py-3 text-slate-600">${item.category}</td>
+            <td class="px-4 py-3 font-semibold text-slate-700">$${item.price}</td>
+            <td class="px-4 py-3 text-slate-600">${item.stock}</td>
+            <td class="px-4 py-3 text-xs text-slate-400">${item.createdAt || item.createdDate || '-'}</td>
+            <td class="px-4 py-3 text-right space-x-2">
+                <button data-id="${item.id}" class="btn-edit text-xs text-indigo-600 hover:text-indigo-800 font-medium">
+                    Editar
+                </button>
+                <button data-id="${item.id}" class="btn-delete text-xs text-red-600 hover:text-red-800 font-medium">
+                    Eliminar
+                </button>
             </td>
-        `;
-        tableBody.appendChild(row);
-    });
+        </tr>
+    `).join("");
 }
 
+export function resetForm(form, submitBtn, cancelBtn) {
+    form.reset();
+    if (submitBtn) submitBtn.textContent = "Agregar";
+    if (cancelBtn) cancelBtn.hidden = true;
+}
+
+export function fillForm(form, item, submitBtn, cancelBtn) {
+    form.querySelector("#name").value = item.name || "";
+    form.querySelector("#description").value = item.description || "";
+    form.querySelector("#price").value = item.price || "";
+    form.querySelector("#category").value = item.category || "";
+    form.querySelector("#stock").value = item.stock || "";
+    form.querySelector("#image").value = item.image || "";
+
+    if (submitBtn) submitBtn.textContent = "Guardar";
+    if (cancelBtn) cancelBtn.hidden = false;
+}
+
+export function showToast(message, type = "error") {
+    console.log(`[TOAST ${type.toUpperCase()}]: ${message}`);
+}
+
+/* ============================================================
+   MODAL DE DETALLES DEL CATÁLOGO
+   ============================================================ */
+
 export function showModalCatalogo(item) {
-    const modalOverlay = document.querySelector('.modal-overlay');
-    const modalName = document.getElementById("modal-catalogo-name");
-    const modalId = document.getElementById("modal-catalogo-id");
-    const modalImg = document.getElementById("modal-catalogo-img");
-    const modalDesc = document.getElementById("modal-catalogo-descripcion");
-    const modalPrice = document.getElementById("modal-catalogo-precio");
-    const modalCategory = document.getElementById("modal-catalogo-categoria");
-    const modalStock = document.getElementById("modal-catalogo-stock");
+    const modal = document.getElementById("catalogo-modal");
+    if (!modal) return;
 
-    const price = Number(item.price)
+    document.getElementById("modal-catalogo-name").textContent = item.name || "";
+    document.getElementById("modal-catalogo-id").textContent = `ID: ${item.id}`;
+    document.getElementById("modal-catalogo-img").src = item.image || "";
+    document.getElementById("modal-catalogo-descripcion").textContent = item.description || "-";
 
-    if (modalName) modalName.textContent = item.name || "";
-    if (modalId) modalId.textContent = item.id ? "#" + item.id.toString().padStart(3, "0") : "";
-    if (modalImg) modalImg.src = item.image || "";
-    if (modalDesc) modalDesc.textContent = item.description || "";
-    if (modalPrice) modalPrice.textContent = price && "$" + price || "Gratis";
-    if (modalCategory) modalCategory.textContent = item.category || "Sin categoría";
-    if (modalStock) modalStock.textContent = item.stock + " disponibles" || "Sin existencias";
+    const price = Number(item.price);
+    document.getElementById("modal-catalogo-precio").textContent =
+        price ? "$" + price.toLocaleString("es-ES") : "Gratis";
 
-    if (modalOverlay) {
-        modalOverlay.classList.add('active');
-    }
+    document.getElementById("modal-catalogo-categoria").textContent = item.category || "";
+    document.getElementById("modal-catalogo-stock").textContent = item.stock ?? "";
 
-    const closeButton = document.querySelector(".close-modal");
-    if (closeButton) {
-        closeButton.onclick = closeModal;
-    }
+    modal.hidden = false;
 }
 
 export function closeModal() {
-    const modalOverlay = document.querySelector('.modal-overlay');
-    if (modalOverlay) {
-        modalOverlay.classList.remove('active');
-    }
-}
-
-export function resetForm(form, submitBtn) {
-    form.reset();
-    if (submitBtn) submitBtn.textContent = "Agregar";
-}
-
-export function fillForm(form, item, submitBtn) {
-    form.querySelector("#name").value = item.name;
-    form.querySelector("#description").value = item.description || "";
-    form.querySelector("#price").value = item.price || "0";
-    form.querySelector("#category").value = item.category || "";
-    form.querySelector("#stock").value = item.stock || "0";
-    form.querySelector("#image").value = item.image || "";
-    if (submitBtn) submitBtn.textContent = "Guardar cambios";
+    const modal = document.getElementById("catalogo-modal");
+    if (modal) modal.hidden = true;
 }
