@@ -81,3 +81,28 @@ export function closeModal() {
     const modal = document.getElementById("catalogo-modal");
     if (modal) modal.hidden = true;
 }
+
+/* ============================================================
+   RENDER EL CATÁLOGO DE PRODUCTOS
+   ============================================================ */
+
+export function renderCatalogCards(items, container) {
+    if (!container) return;
+    if (!items.length) return;
+
+    container.innerHTML = "";
+    container.innerHTML = items.map(item => `
+        <div class="product-card">
+            <img src="${item.image}" alt="imagen del producto" class="w-full h-40 object-cover rounded-lg">
+            <div class="product-info">
+                <div class="card-title">
+                    <p>${item.name}</p>
+                </div>
+                <figure>
+                    <p class="card-price">${item.price ? "$" + item.price.toLocaleString('es-ES') : "Gratis"}</p>
+                    <p class="details-modal" id="${item.id}">Detalles</p>
+                </figure>
+            </div>
+        </div>
+    `).join("");
+}

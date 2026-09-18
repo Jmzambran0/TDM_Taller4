@@ -1,43 +1,17 @@
-import { closeModal, showModalCatalogo } from "./ui/ui.js";
+import { getItems, getItem } from "./services/api.js";
+import { closeModal, showModalCatalogo, showToast, renderCatalogCards } from "./ui/ui.js";
 
-// Constante con la URL base de la API
-const API_URL = "/api/items";
-
-const catalogContainer = document.getElementById("catalogContainer");
+const catalogBody = document.getElementById("catalogContainer");
 const modal = document.getElementById("catalogo-modal");
 
-// Función principal para cargar los items desde la API
 async function loadCatalog() {
     try {
-        const res = await fetch(API_URL);
-        const items = await res.json();
-        catalogContainer.innerHTML = "";
-        items.forEach(renderItem);
+        const items = await getItems();
+        renderCatalogCards(items, catalogBody);
     } catch (err) {
         console.error("Error cargando catálogo:", err);
-        // TODO: Mostrar mensaje de error en la UI
+        showToast(err.message);
     }
-}
-
-function renderItem(item) {
-    const price = Number(item.price)
-    const card = document.createElement("div");
-    card.classList.add("product-card");
-    card.innerHTML = `
-        <img src="${item.image}" alt="imagen del producto" class="w-full h-40 object-cover rounded-lg">
-        <div class="product-info">
-            <div class="card-title">
-                <p>${item.name}</p>
-            </div>
-            <figure>
-                <p class="card-price">${price && "$" + price.toLocaleString('es-ES') || "Gratis"}</p>
-                <p class="details-modal" id="${item.id}">Detalles</p>
-            </figure>
-        </div>
-    `;
-    const detailsBtn = card.querySelector(".details-modal");
-    detailsBtn.addEventListener("click", () => showModalCatalogo(item));
-    catalogContainer.appendChild(card);
 }
 
 // Cerrar modal con el botón "X"
@@ -46,6 +20,14 @@ document.querySelector(".close-modal")?.addEventListener("click", closeModal);
 // Cerrar modal al hacer clic fuera del contenido (en el overlay)
 modal?.addEventListener("click", (e) => {
     if (e.target === modal) closeModal();
+});
+
+catalogBody?.addEventListener("click", async (e) => {
+    if (e.target.classList.contains("details-modal")) {
+        const itemId = e.target.id;
+        const item = await getItem(itemId);
+        showModalCatalogo(item);
+    }
 });
 
 loadCatalog();
