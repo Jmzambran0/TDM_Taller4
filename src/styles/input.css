@@ -1,73 +1,40 @@
-/* ============================================================
-   Archivo FUENTE de Tailwind v4.
-   ============================================================ */
-
 @import "tailwindcss";
 
 @source "../../public/**/*.html";
 
-/* ------------------------------------------------------------
-   1. Design Tokens (Variables compartidas)
-   ------------------------------------------------------------ */
+/* Habilita la estrategia de clase .dark para Tailwind v4 */
+@custom-variant dark (&:where(.dark, .dark *));
+
 @theme {
-    --color-brand-50: oklch(0.97 0.014 254);
-    --color-brand-100: oklch(0.93 0.032 255);
-    --color-brand-500: oklch(0.62 0.19 259);
-    --color-brand-600: oklch(0.55 0.2 262);
-    --color-brand-700: oklch(0.49 0.19 264);
+  --color-brand-50: #eff6ff;
+  --color-brand-100: #dbeafe;
+  --color-brand-500: #3b82f6;
+  --color-brand-700: #1d4ed8;
+  --color-surface: #f8fafc;
+  --color-ink: #0f172a;
 
-    --color-surface: oklch(0.99 0.002 250);
-    --color-ink: oklch(0.28 0.02 265);
-
-    --radius-card: 0.875rem;
+  --font-sans: "Inter", system-ui, sans-serif;
+  --radius-card: 12px;
 }
 
-:root {
-    --red: #c50b15;
-    --details: #cf595f;
-    --azul: #446592;
-    --gris: #555;
-    --white: #ffffff;
-    --verde: #2e9e44;
-    --black: #000000;
-    --silver: #c7c7c7;
-    --text-input-field: #f7f7f7;
-    --sm: 14px;
-    --md: 16px;
-    --lg: 18px;
-    --card-size: 200px;
+@layer components {
+  .btn {
+    @apply inline-flex items-center justify-center rounded-lg px-4 py-2 text-sm font-medium transition-colors cursor-pointer disabled:opacity-50;
+  }
+  .btn-primary {
+    @apply bg-[var(--color-brand-700)] text-white hover:bg-blue-800;
+  }
+  .btn-ghost {
+    @apply text-slate-600 hover:bg-slate-100 dark:text-slate-300 dark:hover:bg-slate-800;
+  }
+  .input {
+    @apply w-full rounded-lg border border-slate-300 bg-white px-3 py-2 text-sm text-slate-900 shadow-sm transition-colors focus:border-blue-600 focus:outline-none dark:border-slate-700 dark:bg-slate-800 dark:text-slate-100;
+  }
+  .badge {
+    @apply inline-flex items-center rounded-md bg-blue-50 px-2 py-0.5 text-xs font-medium text-blue-700 dark:bg-blue-900/40 dark:text-blue-300;
+  }
 }
-
-/* ------------------------------------------------------------
-   2. Componentes Tailwind
-   ------------------------------------------------------------ */
-@utility btn {
-    @apply inline-flex cursor-pointer items-center justify-center gap-2 rounded-lg px-4 py-2
-           text-sm font-medium transition-colors focus-visible:outline-2
-           focus-visible:outline-offset-2 focus-visible:outline-brand-600;
-}
-
-@utility btn-primary {
-    @apply bg-brand-600 text-white hover:bg-brand-700;
-}
-
-@utility btn-ghost {
-    @apply border border-slate-300 bg-white text-slate-700 hover:bg-slate-100;
-}
-
-@utility btn-danger {
-    @apply bg-red-50 text-red-700 hover:bg-red-100;
-}
-
-@utility input {
-    @apply w-full rounded-lg border border-slate-300 bg-white px-3 py-2 text-sm
-           text-ink placeholder:text-slate-400 focus:border-brand-500 focus:outline-none
-           focus:ring-2 focus:ring-brand-100;
-}
-
-/* ------------------------------------------------------------
-   3. Estilos Personalizados Previos (Catálogo y Modal)
-   ------------------------------------------------------------ */
+   /*3. Estilos Personalizados Previos (Catálogo y Modal)*/
 
 /* Navbar */
 .navbar {

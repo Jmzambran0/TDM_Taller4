@@ -6,40 +6,55 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Catálogo - Tienda Online</title>
 
-    <!-- ---- PWA: manifiesto + apariencia en móvil ---- -->
+    <!-- PWA: manifiesto + apariencia en móvil -->
     <link rel="manifest" href="/manifest.webmanifest" />
     <meta name="theme-color" content="#4f46e5" />
     <link rel="icon" href="/icons/icon-192.png" />
     <link rel="apple-touch-icon" href="/icons/icon-192.png" />
 
-    <!-- Meta tag PWA actualizado -->
     <meta name="mobile-web-app-capable" content="yes">
     <meta name="description" content="Catálogo público de productos de la Tienda Online." />
 
-    <!-- CSS generado por Tailwind (RUTA CORREGIDA) -->
+    <!-- CSS generado por Tailwind -->
     <link rel="stylesheet" href="/css/styles.css?v=1.0" />
+
+    <!-- Script Antiparpadeo de Tema (Fase 3.2) -->
+    <script>
+        (function () {
+            const guardado = localStorage.getItem("tema");
+            const prefiereOscuro = window.matchMedia("(prefers-color-scheme: dark)").matches;
+            const tema = guardado ?? (prefiereOscuro ? "oscuro" : "claro");
+            if (tema === "oscuro") document.documentElement.classList.add("dark");
+        })();
+    </script>
 </head>
 
-<body class="min-h-screen bg-surface text-ink antialiased">
-    <!-- ============ NAVBAR ============ -->
-    <nav class="border-b border-slate-200 bg-white">
+<body class="min-h-screen bg-surface text-ink antialiased dark:bg-slate-900 dark:text-slate-100">
+
+    <nav class="border-b border-slate-200 bg-white dark:border-slate-800 dark:bg-slate-900">
         <div class="mx-auto flex max-w-6xl items-center gap-4 px-4 py-3">
             <span class="flex items-center gap-2 font-semibold">
-                <img src="/icons/icon-192.png" alt="" class="h-7 w-7 rounded-md" />
+                <img src="/icons/icon-192.png" alt="Logo TDM" class="h-7 w-7 rounded-md" />
                 TDM
             </span>
 
             <ul class="flex items-center gap-1 text-sm">
                 <li>
-                    <a href="/index.html" class="rounded-lg px-3 py-1.5 text-slate-600 hover:bg-slate-100">Gestión</a>
+                    <a href="/index.html"
+                        class="rounded-lg px-3 py-1.5 text-slate-600 hover:bg-slate-100 dark:text-slate-300 dark:hover:bg-slate-800">Gestión</a>
                 </li>
                 <li>
                     <a href="/catalog.html"
-                        class="rounded-lg bg-brand-50 px-3 py-1.5 font-medium text-brand-700">Catálogo</a>
+                        class="rounded-lg bg-brand-50 px-3 py-1.5 font-medium text-brand-700 dark:bg-blue-900/30 dark:text-blue-400">Catálogo</a>
                 </li>
             </ul>
 
             <div class="ml-auto flex items-center gap-2">
+                <!-- Toggle Tema -->
+                <button id="themeToggleBtn" type="button" aria-label="Cambiar tema"
+                    class="rounded-lg p-1.5 text-slate-500 hover:bg-slate-100 dark:text-slate-400 dark:hover:bg-slate-800 cursor-pointer">
+                    🌙
+                </button>
                 <!-- Estado Offline -->
                 <span id="offlineBadge" hidden
                     class="rounded-full bg-amber-100 px-2.5 py-1 text-xs font-medium text-amber-800">
@@ -56,55 +71,78 @@
     <main class="mx-auto max-w-6xl px-4 py-8">
         <header class="mb-6">
             <h1 class="text-2xl font-bold tracking-tight">TIENDA ONLINE</h1>
-            <p class="mt-1 text-sm text-slate-500">
+            <p class="mt-1 text-sm text-slate-500 dark:text-slate-400">
                 Explora los productos disponibles en nuestro catálogo.
             </p>
         </header>
 
+        <!-- Bar de Búsqueda y Filtros -->
+        <div class="mb-6 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+            <div class="relative flex-1">
+                <label for="searchInput" class="sr-only">Buscar</label>
+                <input type="search" id="searchInput" placeholder="Buscar por nombre o descripción..."
+                    class="input w-full" />
+            </div>
+            <div class="flex items-center gap-2">
+                <label for="filterCategory" class="sr-only">Categoría</label>
+                <select id="filterCategory" class="input !w-auto">
+                    <option value="">Todas las categorías</option>
+                    <option value="Electrónica">Electrónica</option>
+                    <option value="Ropa">Ropa</option>
+                    <option value="Libros">Libros</option>
+                </select>
+
+                <label for="sortOrder" class="sr-only">Ordenar</label>
+                <select id="sortOrder" class="input !w-auto">
+                    <option value="">Sin ordenar</option>
+                    <option value="price">Precio (menor a mayor)</option>
+                </select>
+            </div>
+        </div>
+
         <!-- Grid donde se renderizan los items del catálogo -->
-        <div id="catalogContainer" class="grid gap-1 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5"></div>
+        <div id="catalogContainer" class="grid gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4"></div>
     </main>
 
     <!-- ============ MODAL DE DETALLES DEL PRODUCTO ============ -->
     <div id="catalogo-modal" hidden
         class="fixed inset-0 z-50 flex items-center justify-center bg-slate-900/50 p-4 backdrop-blur-sm">
-        <div class="modal-content relative w-full max-w-lg rounded-card border border-slate-200 bg-white p-6 shadow-xl">
+        <div
+            class="modal-content relative w-full max-w-lg rounded-card border border-slate-200 bg-white p-6 shadow-xl dark:border-slate-700 dark:bg-slate-800">
             <!-- Botón de cerrar -->
             <button type="button"
-                class="close-modal absolute right-4 top-4 flex h-8 w-8 items-center justify-center rounded-full text-slate-400 hover:bg-slate-100 hover:text-slate-600"
+                class="close-modal absolute right-4 top-4 flex h-8 w-8 items-center justify-center rounded-full text-slate-400 hover:bg-slate-100 hover:text-slate-600 dark:hover:bg-slate-700 dark:hover:text-slate-200 cursor-pointer"
                 aria-label="Cerrar modal">
                 &times;
             </button>
 
             <p id="modal-catalogo-id" class="mb-4 text-xs font-mono text-slate-400"></p>
 
-            <div class="mb-4 aspect-square w-fit overflow-hidden rounded-lg bg-slate-100">
+            <div class="mb-4 aspect-square w-full overflow-hidden rounded-lg bg-slate-100 dark:bg-slate-700">
                 <img id="modal-catalogo-img" src="" alt="Producto" class="h-full w-full object-contain" />
             </div>
 
             <!-- Título e Imagen -->
-            <h2 id="modal-catalogo-name" class="text-xl font-bold text-slate-800 pr-8"></h2>
+            <h2 id="modal-catalogo-name" class="text-xl font-bold text-slate-800 dark:text-slate-100 pr-8"></h2>
 
             <!-- Detalles e información del producto -->
-            <div class="modal-info space-y-2 text-sm">
-                <p class="text-slate-600">
-                    <strong class="font-medium text-slate-800">Descripción: </strong>
+            <div class="modal-info space-y-2 text-sm mt-2">
+                <p class="text-slate-600 dark:text-slate-300">
+                    <strong class="font-medium text-slate-800 dark:text-slate-100">Descripción: </strong>
                     <span id="modal-catalogo-descripcion"></span>
                 </p>
-                <p class="text-slate-600">
-                    <strong class="font-medium text-slate-800">Precio: </strong>
-                    <span id="modal-catalogo-precio" class="font-semibold text-brand-700"></span>
+                <p class="text-slate-600 dark:text-slate-300">
+                    <strong class="font-medium text-slate-800 dark:text-slate-100">Precio: </strong>
+                    <span id="modal-catalogo-precio" class="font-semibold text-brand-700 dark:text-blue-400"></span>
                 </p>
                 <div class="flex items-center gap-2 pt-2">
-                    <p class="text-slate-600">
-                        <strong class="font-medium text-slate-800">Categoría: </strong>
-                        <span id="modal-catalogo-categoria"
-                            class="tag rounded-md bg-slate-100 px-2 py-0.5 text-xs font-medium text-slate-700"></span>
+                    <p class="text-slate-600 dark:text-slate-300">
+                        <strong class="font-medium text-slate-800 dark:text-slate-100">Categoría: </strong>
+                        <span id="modal-catalogo-categoria" class="badge"></span>
                     </p>
-                    <p class="text-slate-600">
-                        <strong class="font-medium text-slate-800">Stock: </strong>
-                        <span id="modal-catalogo-stock"
-                            class="tag rounded-md bg-brand-50 px-2 py-0.5 text-xs font-medium text-brand-700"></span>
+                    <p class="text-slate-600 dark:text-slate-300">
+                        <strong class="font-medium text-slate-800 dark:text-slate-100">Stock: </strong>
+                        <span id="modal-catalogo-stock" class="badge"></span>
                     </p>
                 </div>
             </div>

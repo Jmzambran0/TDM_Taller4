@@ -6,44 +6,54 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Gestión - Inventario Tienda</title>
 
-    <!-- ---- PWA: manifiesto + apariencia en móvil ---- -->
+    <!-- PWA: manifiesto + apariencia en móvil -->
     <link rel="manifest" href="/manifest.webmanifest" />
     <meta name="theme-color" content="#4f46e5" />
     <link rel="icon" href="/icons/icon-192.png" />
     <link rel="apple-touch-icon" href="/icons/icon-192.png" />
 
-    <!-- Meta tag actualizado (Elimina la advertencia de deprecado) -->
     <meta name="mobile-web-app-capable" content="yes">
     <meta name="description" content="CRUD de inventario instalable, hecho con Express y Tailwind." />
 
-    <!-- CSS generado por Tailwind (RUTA CORRECTA SERVIDA POR EXPRESS) -->
+    <!-- CSS generado por Tailwind -->
     <link rel="stylesheet" href="/css/styles.css?v=1.0" />
+
+    <!-- Script Antiparpadeo de Tema (Fase 3.2) -->
+    <script>
+      (function () {
+        const guardado = localStorage.getItem("tema");
+        const prefiereOscuro = window.matchMedia("(prefers-color-scheme: dark)").matches;
+        const tema = guardado ?? (prefiereOscuro ? "oscuro" : "claro");
+        if (tema === "oscuro") document.documentElement.classList.add("dark");
+      })();
+    </script>
 </head>
 
-<body class="min-h-screen bg-surface text-ink antialiased">
+<body class="min-h-screen bg-surface text-ink antialiased dark:bg-slate-900 dark:text-slate-100">
     <!-- ============ NAVBAR ============ -->
-    <nav class="border-b border-slate-200 bg-white">
+    <nav class="border-b border-slate-200 bg-white dark:border-slate-800 dark:bg-slate-900">
         <div class="mx-auto flex max-w-6xl items-center gap-4 px-4 py-3">
             <span class="flex items-center gap-2 font-semibold">
-                <img src="/icons/icon-192.png" alt="" class="h-7 w-7 rounded-md" />
+                <img src="/icons/icon-192.png" alt="Logo TDM" class="h-7 w-7 rounded-md" />
                 TDM
             </span>
 
             <ul class="flex items-center gap-1 text-sm">
                 <li>
-                    <a href="/index.html"
-                        class="rounded-lg bg-brand-50 px-3 py-1.5 font-medium text-brand-700">Gestión</a>
+                    <a href="/index.html" class="rounded-lg bg-brand-50 px-3 py-1.5 font-medium text-brand-700 dark:bg-blue-900/30 dark:text-blue-400">Gestión</a>
                 </li>
                 <li>
-                    <a href="/catalog.html"
-                        class="rounded-lg px-3 py-1.5 text-slate-600 hover:bg-slate-100">Catálogo</a>
+                    <a href="/catalog.html" class="rounded-lg px-3 py-1.5 text-slate-600 hover:bg-slate-100 dark:text-slate-300 dark:hover:bg-slate-800">Catálogo</a>
                 </li>
             </ul>
 
             <div class="ml-auto flex items-center gap-2">
+                <!-- Toggle Tema -->
+                <button id="themeToggleBtn" type="button" aria-label="Cambiar tema" class="rounded-lg p-1.5 text-slate-500 hover:bg-slate-100 dark:text-slate-400 dark:hover:bg-slate-800 cursor-pointer">
+                    🌙
+                </button>
                 <!-- Estado Offline -->
-                <span id="offlineBadge" hidden
-                    class="rounded-full bg-amber-100 px-2.5 py-1 text-xs font-medium text-amber-800">
+                <span id="offlineBadge" hidden class="rounded-full bg-amber-100 px-2.5 py-1 text-xs font-medium text-amber-800">
                     Sin conexión
                 </span>
                 <!-- Botón Instalar PWA -->
@@ -57,27 +67,27 @@
     <main class="mx-auto max-w-6xl px-4 py-8">
         <header class="mb-6">
             <h1 class="text-2xl font-bold tracking-tight">INVENTARIO TIENDA</h1>
-            <p class="mt-1 text-sm text-slate-500">Crea, edita y elimina items del catálogo.</p>
+            <p class="mt-1 text-sm text-slate-500 dark:text-slate-400">Crea, edita y elimina items del catálogo.</p>
         </header>
 
         <!-- ============ FORMULARIO ============ -->
-        <form id="itemForm" class="mb-8 rounded-card border border-slate-200 bg-white p-4 shadow-sm">
+        <form id="itemForm" class="mb-8 rounded-card border border-slate-200 bg-white p-4 shadow-sm dark:border-slate-800 dark:bg-slate-900">
             <div class="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
                 <!-- Nombre -->
                 <div>
-                    <label for="name" class="mb-1 block text-xs font-medium text-slate-600">Nombre</label>
+                    <label for="name" class="mb-1 block text-xs font-medium text-slate-600 dark:text-slate-300">Nombre</label>
                     <input type="text" id="name" class="input" placeholder="Nombre del item" required />
                 </div>
 
                 <!-- Descripción -->
                 <div>
-                    <label for="description" class="mb-1 block text-xs font-medium text-slate-600">Descripción</label>
+                    <label for="description" class="mb-1 block text-xs font-medium text-slate-600 dark:text-slate-300">Descripción</label>
                     <input type="text" id="description" class="input" placeholder="Descripción (opcional)" />
                 </div>
 
                 <!-- Categoría -->
                 <div>
-                    <label for="category" class="mb-1 block text-xs font-medium text-slate-600">Categoría</label>
+                    <label for="category" class="mb-1 block text-xs font-medium text-slate-600 dark:text-slate-300">Categoría</label>
                     <select id="category" name="category" class="input" required>
                         <option value="" disabled selected>Selecciona categoría</option>
                         <option value="Electrónica">Electrónica</option>
@@ -88,25 +98,25 @@
 
                 <!-- Precio -->
                 <div>
-                    <label for="price" class="mb-1 block text-xs font-medium text-slate-600">Precio</label>
+                    <label for="price" class="mb-1 block text-xs font-medium text-slate-600 dark:text-slate-300">Precio</label>
                     <input type="number" id="price" class="input" placeholder="Precio" min="0" step="1" required />
                 </div>
 
                 <!-- Stock -->
                 <div>
-                    <label for="stock" class="mb-1 block text-xs font-medium text-slate-600">Stock</label>
+                    <label for="stock" class="mb-1 block text-xs font-medium text-slate-600 dark:text-slate-300">Stock</label>
                     <input type="number" id="stock" class="input" placeholder="Stock disponible" min="0" required />
                 </div>
 
                 <!-- Imagen URL -->
                 <div>
-                    <label for="image" class="mb-1 block text-xs font-medium text-slate-600">URL de la Imagen</label>
+                    <label for="image" class="mb-1 block text-xs font-medium text-slate-600 dark:text-slate-300">URL de la Imagen</label>
                     <input type="url" id="image" class="input" placeholder="https://ejemplo.com/imagen.jpg" />
                 </div>
             </div>
 
             <!-- Botones de Acción -->
-            <div class="mt-4 flex items-center justify-end gap-2 border-t border-slate-100 pt-3">
+            <div class="mt-4 flex items-center justify-end gap-2 border-t border-slate-100 pt-3 dark:border-slate-800">
                 <button type="button" id="cancelBtn" hidden class="btn btn-ghost">
                     Cancelar
                 </button>
@@ -117,9 +127,9 @@
         </form>
 
         <!-- ============ TABLA DE INVENTARIO ============ -->
-        <div class="overflow-x-auto rounded-card border border-slate-200 bg-white shadow-sm">
+        <div class="overflow-x-auto rounded-card border border-slate-200 bg-white shadow-sm dark:border-slate-800 dark:bg-slate-900">
             <table class="w-full text-left text-sm">
-                <thead class="bg-slate-50 text-xs uppercase tracking-wide text-slate-500">
+                <thead class="bg-slate-50 text-xs uppercase tracking-wide text-slate-500 dark:bg-slate-800/50 dark:text-slate-400">
                     <tr>
                         <th class="px-4 py-3 font-medium">ID</th>
                         <th class="px-4 py-3 font-medium">Nombre</th>
@@ -131,7 +141,7 @@
                         <th class="px-4 py-3 text-right font-medium">Acciones</th>
                     </tr>
                 </thead>
-                <tbody id="itemsTable" class="divide-y divide-slate-100"></tbody>
+                <tbody id="itemsTable" class="divide-y divide-slate-100 dark:divide-slate-800"></tbody>
             </table>
         </div>
     </main>
