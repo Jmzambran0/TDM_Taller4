@@ -1,11 +1,11 @@
 import fs from "node:fs";
 import path from "node:path";
 import { Router } from "express";
+import { validateItem } from "../middlewares/validate.js"; // Importación del middleware
 
 const router = Router();
 const DATA_PATH = path.join(import.meta.dirname, "..", "data", "items.json");
 
-// Helper para leer el JSON
 function readData() {
     try {
         const data = fs.readFileSync(DATA_PATH, "utf8");
@@ -15,14 +15,42 @@ function readData() {
     }
 }
 
-// Helper para escribir el JSON
 function writeData(data) {
     fs.writeFileSync(DATA_PATH, JSON.stringify(data, null, 2));
 }
 
-// GET /api/items - Obtener todos los items
+// 2.2 GET /api/items - Búsqueda, Filtro y Orden mediante Query Params
 router.get("/", (req, res) => {
-    res.json(readData());
+    const { q, categoria, sort } = req.query; // Extraer query params
+    let resultado = readData();
+
+    // 1. Filtro 'q': busca texto en nombre y descripción
+    if (q) {
+        const busqueda = String(q).toLowerCase();
+        resultado = resultado.filter(item =>
+            (item.nombre && item.nombre.toLowerCase().includes(busqueda)) ||
+            (item.descripcion && item.descripcion.toLowerCase().includes(busqueda))
+        );
+    }
+
+    // 2. Filtro por campo de lista cerrada (ejemplo: 'categoria')
+    if (categoria) {
+        resultado = resultado.filter(item =>
+            item.categoria && item.categoria.toLowerCase() === String(categoria).toLowerCase()
+        );
+    }
+
+    // 3. Ordenamiento 'sort' por campo numérico
+    if (sort) {
+        resultado = [...resultado].sort((a, b) => {
+            const valA = Number(a[sort]) || 0;
+            const valB = Number(b[sort]) || 0;
+            return valA - valB;
+        });
+    }
+
+    // Sin parámetros o tras filtrar, devuelve el arreglo correspondiente
+    res.json(resultado);
 });
 
 // GET /api/items/:id - Obtener un item por ID
@@ -38,10 +66,10 @@ router.get("/:id", (req, res) => {
     res.json(item);
 });
 
-// POST /api/items - Crear un nuevo item
-router.post("/", (req, res) => {
+// POST /api/items - Crear con middleware de validación
+router.post("/", validateItem, (req, res) => {
     const items = readData();
-    const nuevo = req.body; // Express analiza el JSON automáticamente
+    const nuevo = req.body;
 
     const maxId = items.reduce((max, i) => Math.max(max, Number(i.id) || 0), 0);
     nuevo.id = maxId + 1;
@@ -53,8 +81,8 @@ router.post("/", (req, res) => {
     res.status(201).json(nuevo);
 });
 
-// PUT /api/items/:id - Actualizar un item
-router.put("/:id", (req, res) => {
+// PUT /api/items/:id - Actualizar con middleware de validación
+router.put("/:id", validateItem, (req, res) => {
     const id = parseInt(req.params.id, 10);
     let items = readData();
     const idx = items.findIndex(i => Number(i.id) === id);

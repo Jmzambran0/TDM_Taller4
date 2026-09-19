@@ -1,9 +1,5 @@
 const API_URL = "/api/items";
 
-/**
- * Helper compartido: hace el fetch, y si el servidor respondió con error
- * intenta leer el mensaje que viene en el JSON ({ "error": "..." }).
- */
 async function request(url, options) {
     const res = await fetch(url, options);
 
@@ -12,8 +8,9 @@ async function request(url, options) {
         try {
             const body = await res.json();
             if (body.error) message = body.error;
+            if (body.errores) message = body.errores.join(", ");
         } catch {
-            // La respuesta no era JSON (ej. estamos sin conexión): dejamos el mensaje genérico.
+            // Sin conexión o respuesta no-JSON
         }
         throw new Error(message);
     }
@@ -21,11 +18,20 @@ async function request(url, options) {
     return res.json();
 }
 
-// Cabecera reutilizada por POST y PUT
 const JSON_HEADERS = { "Content-Type": "application/json" };
 
-export function getItems() {
-    return request(API_URL);
+// Permite enviar filtros como getItems({ q: "espada", categoria: "armas", sort: "precio" })
+export function getItems(filtros = {}) {
+    const params = new URLSearchParams();
+
+    for (const [clave, valor] of Object.entries(filtros)) {
+        if (valor) params.set(clave, valor);
+    }
+
+    const query = params.toString();
+    const url = query ? `${API_URL}?${query}` : API_URL;
+
+    return request(url);
 }
 
 export function getItem(id) {
