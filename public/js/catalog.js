@@ -1,4 +1,4 @@
-import { getItems, getItem } from "../services/api.js";
+import { getItems, getItem } from "./services/api.js";
 import { 
     closeModal, 
     showModalCatalogo, 
@@ -19,7 +19,6 @@ const themeToggleBtn = document.getElementById("themeToggleBtn");
 async function loadCatalog() {
     renderLoading(catalogBody);
 
-    // Mapeo flexible de parámetros para el API
     const query = searchInput?.value.trim() || "";
     const category = filterCategory?.value || "";
     const sort = sortOrder?.value || "";
@@ -29,7 +28,6 @@ async function loadCatalog() {
     try {
         let items = await getItems(filtros);
 
-        // Si la API no filtra en backend, realizamos un filtro local de respaldo
         if (Array.isArray(items)) {
             if (category) {
                 items = items.filter(item => item.category === category);
@@ -54,12 +52,10 @@ async function loadCatalog() {
     }
 }
 
-// Escuchar cambios en los inputs
 searchInput?.addEventListener("input", loadCatalog);
 filterCategory?.addEventListener("change", loadCatalog);
 sortOrder?.addEventListener("change", loadCatalog);
 
-// Eventos de Modal
 document.querySelector(".close-modal")?.addEventListener("click", closeModal);
 
 modal?.addEventListener("click", (e) => {
@@ -79,7 +75,6 @@ catalogBody?.addEventListener("click", async (e) => {
     }
 });
 
-// Toggle del Modo Oscuro
 themeToggleBtn?.addEventListener("click", () => {
     const esOscuro = document.documentElement.classList.toggle("dark");
     localStorage.setItem("tema", esOscuro ? "oscuro" : "claro");

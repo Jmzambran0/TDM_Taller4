@@ -5,15 +5,14 @@ const form = document.getElementById("itemForm");
 const tableBody = document.getElementById("itemsTable");
 const submitBtn = document.getElementById("submitBtn");
 const cancelBtn = document.getElementById("cancelBtn");
+const themeToggleBtn = document.getElementById("themeToggleBtn");
 let editingId = null;
 
-/** Vuelve al modo "crear". */
 function stopEditing() {
     editingId = null;
     resetForm(form, submitBtn, cancelBtn);
 }
 
-// Eventos de tabla (delegación: un solo listener para todas las filas)
 tableBody.addEventListener("click", async (e) => {
     const btn = e.target.closest("button");
     if (!btn) return;
@@ -32,7 +31,6 @@ tableBody.addEventListener("click", async (e) => {
         }
     } else if (btn.classList.contains("btn-edit")) {
         try {
-            // Segundo clic en el mismo botón = cancelar la edición
             if (editingId === id) {
                 stopEditing();
                 return;
@@ -49,7 +47,6 @@ tableBody.addEventListener("click", async (e) => {
 
 cancelBtn.addEventListener("click", stopEditing);
 
-// Envío del form
 form.addEventListener("submit", async (e) => {
     e.preventDefault();
     const name = form.querySelector("#name").value.trim();
@@ -77,7 +74,12 @@ form.addEventListener("submit", async (e) => {
     }
 });
 
-// Cargar al inicio
+// Toggle del Modo Oscuro (faltaba en esta página)
+themeToggleBtn?.addEventListener("click", () => {
+    const esOscuro = document.documentElement.classList.toggle("dark");
+    localStorage.setItem("tema", esOscuro ? "oscuro" : "claro");
+});
+
 async function loadItems() {
     try {
         const items = await getItems();

@@ -1,15 +1,5 @@
 [
   {
-    "name": "Chaqueta Impermeable Trekking",
-    "description": "Chaqueta ligera resistente al agua, talla M-XL, varios colores",
-    "price": "129900",
-    "category": "Ropa",
-    "stock": "21",
-    "image": "https://contents.mediadecathlon.com/p2939227/k$014ca5534cf9d84ab0c4ea93b6ff3d80/chaqueta-3en1-impermeable-hombre-viaje-trekking-travel-100.jpg",
-    "createdDate": "2/9/2026",
-    "id": 2
-  },
-  {
     "name": "Cien Años de Soledad",
     "description": "Novela de Gabriel García Márquez, edición tapa blanda",
     "price": "45000",
@@ -138,16 +128,5 @@
     "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQCUpvGWhRoHHmSMsaZ3FdoCMz7Phajo2oUFg_3nZCJ9Q&s=10",
     "createdDate": "6/9/2026",
     "id": 15
-  },
-  {
-    "name": "pantalon",
-    "description": "es corto",
-    "price": "6000",
-    "category": "Ropa",
-    "stock": "5",
-    "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQlx87p6HOJxbAJvCBXZmm3LPF2EN85puQDUadBaFAOmw&s=10",
-    "createdDate": "10/9/2026",
-    "id": 16,
-    "createdAt": "2026-09-11T01:41:01.633Z"
   }
 ]
