@@ -62,10 +62,10 @@
   {
     "name": "Jean Slim Fit Hombre",
     "description": "Denim elástico, corte moderno, tallas 28-38",
-    "price": "89900",
+    "price": 89900,
     "category": "Ropa",
-    "stock": "35",
-    "image": "https://chevignon.vtexassets.com/arquivos/ids/2113362/63_332H012_AZU184140_0.jpg?v=639137640746270000",
+    "stock": 35,
+    "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRIcb8m1GOsDPabijO7aBFPKinVW1_JJOVBnlVZp3lmpYusKzLkQHkgcx-o&s=10",
     "createdDate": "6/9/2026",
     "id": 9
   },
@@ -128,5 +128,15 @@
     "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQCUpvGWhRoHHmSMsaZ3FdoCMz7Phajo2oUFg_3nZCJ9Q&s=10",
     "createdDate": "6/9/2026",
     "id": 15
+  },
+  {
+    "name": "iPhone 16 - Exhibición Rosa / 128 Gb",
+    "description": "El iPhone 16 cuenta con una pantalla OLED Super Retina XDR de 6.1 pulgadas, procesador Apple A18 y 8 GB de RAM.",
+    "category": "Electrónica",
+    "price": 2990000,
+    "stock": 26,
+    "image": "https://co.tiendasishop.com/cdn/shop/files/IMG-14858821_a2762325-3ee8-4bd1-870c-b16dfc4877b7.jpg?v=1726245580",
+    "id": 16,
+    "createdAt": "2026-09-20T00:42:26.961Z"
   }
 ]

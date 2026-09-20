@@ -1,7 +1,13 @@
 const API_URL = "/api/items";
 
 async function request(url, options) {
-    const res = await fetch(url, options);
+    let res;
+    try {
+        res = await fetch(url, options);
+    } catch (err) {
+        // fetch() lanza esto cuando no hay red en absoluto
+        throw new Error("No disponible sin conexión");
+    }
 
     if (!res.ok) {
         let message = `Error ${res.status}`;
@@ -20,17 +26,13 @@ async function request(url, options) {
 
 const JSON_HEADERS = { "Content-Type": "application/json" };
 
-// Permite enviar filtros como getItems({ q: "espada", categoria: "armas", sort: "precio" })
 export function getItems(filtros = {}) {
     const params = new URLSearchParams();
-
     for (const [clave, valor] of Object.entries(filtros)) {
         if (valor) params.set(clave, valor);
     }
-
     const query = params.toString();
     const url = query ? `${API_URL}?${query}` : API_URL;
-
     return request(url);
 }
 

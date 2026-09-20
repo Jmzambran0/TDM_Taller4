@@ -49,20 +49,27 @@ cancelBtn.addEventListener("click", stopEditing);
 
 form.addEventListener("submit", async (e) => {
     e.preventDefault();
+
     const name = form.querySelector("#name").value.trim();
     const description = form.querySelector("#description").value.trim();
+    const category = form.querySelector("#category").value;
+    const price = Number(form.querySelector("#price").value);
+    const stock = Number(form.querySelector("#stock").value);
+    const image = form.querySelector("#image").value.trim();
 
     if (!name) {
         showToast("El campo nombre es obligatorio");
         return;
     }
 
+    const data = { name, description, category, price, stock, image };
+
     try {
         if (editingId) {
-            await updateItem(editingId, { name, description });
+            await updateItem(editingId, data);
             showToast("Cambios guardados", "success");
         } else {
-            await createItem({ name, description });
+            await createItem(data);
             showToast("Item agregado", "success");
         }
 
@@ -74,7 +81,6 @@ form.addEventListener("submit", async (e) => {
     }
 });
 
-// Toggle del Modo Oscuro (faltaba en esta página)
 themeToggleBtn?.addEventListener("click", () => {
     const esOscuro = document.documentElement.classList.toggle("dark");
     localStorage.setItem("tema", esOscuro ? "oscuro" : "claro");

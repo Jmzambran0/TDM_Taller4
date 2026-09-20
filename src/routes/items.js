@@ -21,22 +21,22 @@ function writeData(data) {
 
 // 2.2 GET /api/items - Búsqueda, Filtro y Orden mediante Query Params
 router.get("/", (req, res) => {
-    const { q, categoria, sort } = req.query; // Extraer query params
+    const { q, category, sort } = req.query; // Extraer query params
     let resultado = readData();
 
     // 1. Filtro 'q': busca texto en nombre y descripción
     if (q) {
         const busqueda = String(q).toLowerCase();
         resultado = resultado.filter(item =>
-            (item.nombre && item.nombre.toLowerCase().includes(busqueda)) ||
-            (item.descripcion && item.descripcion.toLowerCase().includes(busqueda))
+            (item.name && item.name.toLowerCase().includes(busqueda)) ||
+            (item.description && item.description.toLowerCase().includes(busqueda))
         );
     }
 
-    // 2. Filtro por campo de lista cerrada (ejemplo: 'categoria')
-    if (categoria) {
+    // 2. Filtro por campo de lista cerrada (ejemplo: 'category')
+    if (category) {
         resultado = resultado.filter(item =>
-            item.categoria && item.categoria.toLowerCase() === String(categoria).toLowerCase()
+            item.category && item.category.toLowerCase() === String(category).toLowerCase()
         );
     }
 
